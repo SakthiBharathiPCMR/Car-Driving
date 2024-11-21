@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField] private float horsePower = 1f;
+    [SerializeField] private Transform centerOfMassTransform;
 
     public Camera mainCamera;
     public Camera hoodCamera;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+      //  rb.centerOfMass = centerOfMassTransform.position;
         //switching camera
 
         if (Input.GetKeyDown(switchKey))
