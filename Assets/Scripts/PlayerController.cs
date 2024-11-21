@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private float moveSpeed = 10.0f;
+    //private float moveSpeed = 10.0f;
     private float turnSpeed = 25.0f;
     private float horizontalInput;
     private float forwardInput;
+    private Rigidbody rb;
 
+    [SerializeField] private float horsePower = 1f;
 
     public Camera mainCamera;
     public Camera hoodCamera;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         //switching camera
 
         if (Input.GetKeyDown(switchKey))
@@ -30,7 +33,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
 
@@ -48,7 +51,9 @@ public class PlayerController : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
 
         // move the vehicle 
-        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed * forwardInput);
+        // transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed * forwardInput);
+        rb.AddRelativeForce(Vector3.forward * forwardInput * horsePower);
+
         // rotate the vehicle 
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
     }
